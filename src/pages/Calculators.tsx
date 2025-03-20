@@ -1,6 +1,11 @@
-
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -13,27 +18,41 @@ const Calculators = () => {
   const [loanAmount, setLoanAmount] = useState(10000);
   const [loanInterestRate, setLoanInterestRate] = useState(5);
   const [loanTerm, setLoanTerm] = useState(3);
-  const [loanMonthlyPayment, setLoanMonthlyPayment] = useState<number | null>(null);
+  const [loanMonthlyPayment, setLoanMonthlyPayment] = useState<number | null>(
+    null
+  );
   const [loanTotalPayment, setLoanTotalPayment] = useState<number | null>(null);
-  const [loanTotalInterest, setLoanTotalInterest] = useState<number | null>(null);
+  const [loanTotalInterest, setLoanTotalInterest] = useState<number | null>(
+    null
+  );
 
   // Mortgage calculator state
   const [mortgagePrice, setMortgagePrice] = useState(300000);
   const [mortgageDownPayment, setMortgageDownPayment] = useState(60000);
   const [mortgageInterestRate, setMortgageInterestRate] = useState(4);
   const [mortgageTerm, setMortgageTerm] = useState(30);
-  const [mortgageMonthlyPayment, setMortgageMonthlyPayment] = useState<number | null>(null);
-  const [mortgageTotalPayment, setMortgageTotalPayment] = useState<number | null>(null);
-  const [mortgageTotalInterest, setMortgageTotalInterest] = useState<number | null>(null);
-  
+  const [mortgageMonthlyPayment, setMortgageMonthlyPayment] = useState<
+    number | null
+  >(null);
+  const [mortgageTotalPayment, setMortgageTotalPayment] = useState<
+    number | null
+  >(null);
+  const [mortgageTotalInterest, setMortgageTotalInterest] = useState<
+    number | null
+  >(null);
+
   // Leasing calculator state
   const [leasingVehiclePrice, setLeasingVehiclePrice] = useState(30000);
   const [leasingResidualValue, setLeasingResidualValue] = useState(15000);
   const [leasingInterestRate, setLeasingInterestRate] = useState(3);
   const [leasingTerm, setLeasingTerm] = useState(36);
-  const [leasingMonthlyPayment, setLeasingMonthlyPayment] = useState<number | null>(null);
-  const [leasingTotalPayment, setLeasingTotalPayment] = useState<number | null>(null);
-  
+  const [leasingMonthlyPayment, setLeasingMonthlyPayment] = useState<
+    number | null
+  >(null);
+  const [leasingTotalPayment, setLeasingTotalPayment] = useState<number | null>(
+    null
+  );
+
   // Tax calculator state
   const [taxableIncome, setTaxableIncome] = useState(60000);
   const [taxRate, setTaxRate] = useState(25);
@@ -46,36 +65,36 @@ const Calculators = () => {
     const principal = loanAmount;
     const interest = loanInterestRate / 100 / 12;
     const payments = loanTerm * 12;
-    
+
     const x = Math.pow(1 + interest, payments);
     const monthly = (principal * x * interest) / (x - 1);
-    
+
     setLoanMonthlyPayment(monthly);
     setLoanTotalPayment(monthly * payments);
-    setLoanTotalInterest((monthly * payments) - principal);
+    setLoanTotalInterest(monthly * payments - principal);
   };
 
   // Mortgage calculator
   const calculateMortgage = () => {
-    const principal = mortgagePrice - mortgageDownPayment;
-    const interest = mortgageInterestRate / 100 / 12;
-    const payments = mortgageTerm * 12;
-    
-    const x = Math.pow(1 + interest, payments);
-    const monthly = (principal * x * interest) / (x - 1);
-    
-    setMortgageMonthlyPayment(monthly);
-    setMortgageTotalPayment(monthly * payments);
-    setMortgageTotalInterest((monthly * payments) - principal);
+    // const principal = mortgagePrice - mortgageDownPayment;
+    // const interest = mortgageInterestRate / 100 / 12;
+    // const payments = mortgageTerm * 12;
+    // const x = Math.pow(1 + interest, payments);
+    // const monthly = (principal * x * interest) / (x - 1);
+    // setMortgageMonthlyPayment(monthly);
+    // setMortgageTotalPayment(monthly * payments);
+    // setMortgageTotalInterest((monthly * payments) - principal);
   };
 
   // Leasing calculator
   const calculateLeasing = () => {
     const depreciationAmount = leasingVehiclePrice - leasingResidualValue;
     const depreciationFee = depreciationAmount / leasingTerm;
-    const financeFee = (leasingVehiclePrice + leasingResidualValue) * (leasingInterestRate / 100 / 12);
+    const financeFee =
+      (leasingVehiclePrice + leasingResidualValue) *
+      (leasingInterestRate / 100 / 12);
     const monthlyPayment = depreciationFee + financeFee;
-    
+
     setLeasingMonthlyPayment(monthlyPayment);
     setLeasingTotalPayment(monthlyPayment * leasingTerm);
   };
@@ -85,7 +104,7 @@ const Calculators = () => {
     const taxableAmount = Math.max(0, taxableIncome - taxDeductions);
     const taxAmount = taxableAmount * (taxRate / 100);
     const effectiveRate = (taxAmount / taxableIncome) * 100;
-    
+
     setTaxResult(taxAmount);
     setEffectiveTaxRate(effectiveRate);
   };
@@ -93,7 +112,9 @@ const Calculators = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Financial Calculators</h1>
+        <h1 className="text-2xl font-bold tracking-tight">
+          Financial Calculators
+        </h1>
         <p className="text-muted-foreground">
           Calculate loans, mortgages, leasing, and taxes
         </p>
@@ -106,7 +127,7 @@ const Calculators = () => {
           <TabsTrigger value="leasing">Leasing</TabsTrigger>
           <TabsTrigger value="tax">Tax</TabsTrigger>
         </TabsList>
-        
+
         {/* Loan Calculator */}
         <TabsContent value="loan">
           <Card className="bg-fintrack-dark-lighter border-gray-800">
@@ -116,7 +137,8 @@ const Calculators = () => {
                 Loan Calculator
               </CardTitle>
               <CardDescription>
-                Calculate your monthly loan payments, total payment amount, and total interest.
+                Calculate your monthly loan payments, total payment amount, and
+                total interest.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -125,7 +147,9 @@ const Calculators = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="loan-amount">Loan Amount ($)</Label>
-                      <span className="text-sm font-medium">${loanAmount.toLocaleString()}</span>
+                      <span className="text-sm font-medium">
+                        ${loanAmount.toLocaleString()}
+                      </span>
                     </div>
                     <Slider
                       id="loan-amount"
@@ -143,11 +167,13 @@ const Calculators = () => {
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="loan-interest">Interest Rate (%)</Label>
-                      <span className="text-sm font-medium">{loanInterestRate}%</span>
+                      <span className="text-sm font-medium">
+                        {loanInterestRate}%
+                      </span>
                     </div>
                     <Slider
                       id="loan-interest"
@@ -161,16 +187,20 @@ const Calculators = () => {
                     <Input
                       type="number"
                       value={loanInterestRate}
-                      onChange={(e) => setLoanInterestRate(Number(e.target.value))}
+                      onChange={(e) =>
+                        setLoanInterestRate(Number(e.target.value))
+                      }
                       className="bg-gray-800 border-gray-700"
                       step="0.1"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="loan-term">Loan Term (years)</Label>
-                      <span className="text-sm font-medium">{loanTerm} years</span>
+                      <span className="text-sm font-medium">
+                        {loanTerm} years
+                      </span>
                     </div>
                     <Slider
                       id="loan-term"
@@ -188,45 +218,53 @@ const Calculators = () => {
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
-                  <Button 
-                    onClick={calculateLoan} 
+
+                  <Button
+                    onClick={calculateLoan}
                     className="w-full bg-fintrack-green hover:bg-fintrack-green-dark"
                   >
                     Calculate
                   </Button>
                 </div>
-                
+
                 <div className="bg-gray-800 rounded-lg p-6 space-y-6">
                   <h3 className="text-lg font-medium">Loan Summary</h3>
-                  
+
                   <div className="space-y-4">
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Monthly Payment</p>
                       <p className="text-2xl font-bold">
-                        {loanMonthlyPayment ? `$${loanMonthlyPayment.toFixed(2)}` : '-'}
+                        {loanMonthlyPayment
+                          ? `$${loanMonthlyPayment.toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Total Payment</p>
                       <p className="text-xl font-semibold">
-                        {loanTotalPayment ? `$${loanTotalPayment.toFixed(2)}` : '-'}
+                        {loanTotalPayment
+                          ? `$${loanTotalPayment.toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Total Interest</p>
                       <p className="text-xl font-semibold">
-                        {loanTotalInterest ? `$${loanTotalInterest.toFixed(2)}` : '-'}
+                        {loanTotalInterest
+                          ? `$${loanTotalInterest.toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
                   </div>
-                  
+
                   {loanMonthlyPayment && (
                     <div className="pt-4 border-t border-gray-700">
                       <p className="text-sm text-gray-400">
-                        A ${loanAmount.toLocaleString()} loan with {loanInterestRate}% interest over {loanTerm} years will cost ${loanTotalInterest?.toFixed(2)} in interest.
+                        A ${loanAmount.toLocaleString()} loan with{" "}
+                        {loanInterestRate}% interest over {loanTerm} years will
+                        cost ${loanTotalInterest?.toFixed(2)} in interest.
                       </p>
                     </div>
                   )}
@@ -235,7 +273,7 @@ const Calculators = () => {
             </CardContent>
           </Card>
         </TabsContent>
-        
+
         {/* Mortgage Calculator */}
         <TabsContent value="mortgage">
           <Card className="bg-fintrack-dark-lighter border-gray-800">
@@ -245,7 +283,8 @@ const Calculators = () => {
                 Mortgage Calculator
               </CardTitle>
               <CardDescription>
-                Calculate your monthly mortgage payments, total payment amount, and total interest.
+                Calculate your monthly mortgage payments, total payment amount,
+                and total interest.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -254,7 +293,9 @@ const Calculators = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="mortgage-price">Home Price ($)</Label>
-                      <span className="text-sm font-medium">${mortgagePrice.toLocaleString()}</span>
+                      <span className="text-sm font-medium">
+                        ${mortgagePrice.toLocaleString()}
+                      </span>
                     </div>
                     <Slider
                       id="mortgage-price"
@@ -272,11 +313,17 @@ const Calculators = () => {
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="mortgage-down">Down Payment ($)</Label>
-                      <span className="text-sm font-medium">${mortgageDownPayment.toLocaleString()} ({((mortgageDownPayment / mortgagePrice) * 100).toFixed(1)}%)</span>
+                      <span className="text-sm font-medium">
+                        ${mortgageDownPayment.toLocaleString()} (
+                        {((mortgageDownPayment / mortgagePrice) * 100).toFixed(
+                          1
+                        )}
+                        %)
+                      </span>
                     </div>
                     <Slider
                       id="mortgage-down"
@@ -284,21 +331,29 @@ const Calculators = () => {
                       max={mortgagePrice * 0.5}
                       step={5000}
                       value={[mortgageDownPayment]}
-                      onValueChange={(value) => setMortgageDownPayment(value[0])}
+                      onValueChange={(value) =>
+                        setMortgageDownPayment(value[0])
+                      }
                       className="[&_[role=slider]]:bg-fintrack-green"
                     />
                     <Input
                       type="number"
                       value={mortgageDownPayment}
-                      onChange={(e) => setMortgageDownPayment(Number(e.target.value))}
+                      onChange={(e) =>
+                        setMortgageDownPayment(Number(e.target.value))
+                      }
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <Label htmlFor="mortgage-interest">Interest Rate (%)</Label>
-                      <span className="text-sm font-medium">{mortgageInterestRate}%</span>
+                      <Label htmlFor="mortgage-interest">
+                        Interest Rate (%)
+                      </Label>
+                      <span className="text-sm font-medium">
+                        {mortgageInterestRate}%
+                      </span>
                     </div>
                     <Slider
                       id="mortgage-interest"
@@ -306,22 +361,28 @@ const Calculators = () => {
                       max={10}
                       step={0.1}
                       value={[mortgageInterestRate]}
-                      onValueChange={(value) => setMortgageInterestRate(value[0])}
+                      onValueChange={(value) =>
+                        setMortgageInterestRate(value[0])
+                      }
                       className="[&_[role=slider]]:bg-fintrack-green"
                     />
                     <Input
                       type="number"
                       value={mortgageInterestRate}
-                      onChange={(e) => setMortgageInterestRate(Number(e.target.value))}
+                      onChange={(e) =>
+                        setMortgageInterestRate(Number(e.target.value))
+                      }
                       className="bg-gray-800 border-gray-700"
                       step="0.1"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="mortgage-term">Loan Term (years)</Label>
-                      <span className="text-sm font-medium">{mortgageTerm} years</span>
+                      <span className="text-sm font-medium">
+                        {mortgageTerm} years
+                      </span>
                     </div>
                     <Slider
                       id="mortgage-term"
@@ -344,44 +405,51 @@ const Calculators = () => {
                       <option value={30}>30 years</option>
                     </select>
                   </div>
-                  
-                  <Button 
-                    onClick={calculateMortgage} 
+
+                  <Button
+                    onClick={calculateMortgage}
                     className="w-full bg-fintrack-green hover:bg-fintrack-green-dark"
                   >
                     Calculate
                   </Button>
                 </div>
-                
+
                 <div className="bg-gray-800 rounded-lg p-6 space-y-6">
                   <h3 className="text-lg font-medium">Mortgage Summary</h3>
-                  
+
                   <div className="space-y-4">
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Monthly Payment</p>
                       <p className="text-2xl font-bold">
-                        {mortgageMonthlyPayment ? `$${mortgageMonthlyPayment.toFixed(2)}` : '-'}
+                        {mortgageMonthlyPayment
+                          ? `$${mortgageMonthlyPayment.toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Loan Amount</p>
                       <p className="text-xl font-semibold">
-                        ${(mortgagePrice - mortgageDownPayment).toLocaleString()}
+                        $
+                        {(mortgagePrice - mortgageDownPayment).toLocaleString()}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Total Payment</p>
                       <p className="text-xl font-semibold">
-                        {mortgageTotalPayment ? `$${mortgageTotalPayment.toFixed(2)}` : '-'}
+                        {mortgageTotalPayment
+                          ? `$${mortgageTotalPayment.toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Total Interest</p>
                       <p className="text-xl font-semibold">
-                        {mortgageTotalInterest ? `$${mortgageTotalInterest.toFixed(2)}` : '-'}
+                        {mortgageTotalInterest
+                          ? `$${mortgageTotalInterest.toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
                   </div>
@@ -390,7 +458,7 @@ const Calculators = () => {
             </CardContent>
           </Card>
         </TabsContent>
-        
+
         {/* Leasing Calculator */}
         <TabsContent value="leasing">
           <Card className="bg-fintrack-dark-lighter border-gray-800">
@@ -400,7 +468,8 @@ const Calculators = () => {
                 Leasing Calculator
               </CardTitle>
               <CardDescription>
-                Calculate your monthly vehicle lease payments and total lease cost.
+                Calculate your monthly vehicle lease payments and total lease
+                cost.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -409,7 +478,9 @@ const Calculators = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="leasing-price">Vehicle Price ($)</Label>
-                      <span className="text-sm font-medium">${leasingVehiclePrice.toLocaleString()}</span>
+                      <span className="text-sm font-medium">
+                        ${leasingVehiclePrice.toLocaleString()}
+                      </span>
                     </div>
                     <Slider
                       id="leasing-price"
@@ -417,21 +488,34 @@ const Calculators = () => {
                       max={100000}
                       step={1000}
                       value={[leasingVehiclePrice]}
-                      onValueChange={(value) => setLeasingVehiclePrice(value[0])}
+                      onValueChange={(value) =>
+                        setLeasingVehiclePrice(value[0])
+                      }
                       className="[&_[role=slider]]:bg-fintrack-green"
                     />
                     <Input
                       type="number"
                       value={leasingVehiclePrice}
-                      onChange={(e) => setLeasingVehiclePrice(Number(e.target.value))}
+                      onChange={(e) =>
+                        setLeasingVehiclePrice(Number(e.target.value))
+                      }
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <Label htmlFor="leasing-residual">Residual Value ($)</Label>
-                      <span className="text-sm font-medium">${leasingResidualValue.toLocaleString()} ({((leasingResidualValue / leasingVehiclePrice) * 100).toFixed(1)}%)</span>
+                      <Label htmlFor="leasing-residual">
+                        Residual Value ($)
+                      </Label>
+                      <span className="text-sm font-medium">
+                        ${leasingResidualValue.toLocaleString()} (
+                        {(
+                          (leasingResidualValue / leasingVehiclePrice) *
+                          100
+                        ).toFixed(1)}
+                        %)
+                      </span>
                     </div>
                     <Slider
                       id="leasing-residual"
@@ -439,21 +523,29 @@ const Calculators = () => {
                       max={leasingVehiclePrice * 0.7}
                       step={1000}
                       value={[leasingResidualValue]}
-                      onValueChange={(value) => setLeasingResidualValue(value[0])}
+                      onValueChange={(value) =>
+                        setLeasingResidualValue(value[0])
+                      }
                       className="[&_[role=slider]]:bg-fintrack-green"
                     />
                     <Input
                       type="number"
                       value={leasingResidualValue}
-                      onChange={(e) => setLeasingResidualValue(Number(e.target.value))}
+                      onChange={(e) =>
+                        setLeasingResidualValue(Number(e.target.value))
+                      }
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <Label htmlFor="leasing-interest">Interest Rate (%)</Label>
-                      <span className="text-sm font-medium">{leasingInterestRate}%</span>
+                      <Label htmlFor="leasing-interest">
+                        Interest Rate (%)
+                      </Label>
+                      <span className="text-sm font-medium">
+                        {leasingInterestRate}%
+                      </span>
                     </div>
                     <Slider
                       id="leasing-interest"
@@ -461,22 +553,28 @@ const Calculators = () => {
                       max={10}
                       step={0.1}
                       value={[leasingInterestRate]}
-                      onValueChange={(value) => setLeasingInterestRate(value[0])}
+                      onValueChange={(value) =>
+                        setLeasingInterestRate(value[0])
+                      }
                       className="[&_[role=slider]]:bg-fintrack-green"
                     />
                     <Input
                       type="number"
                       value={leasingInterestRate}
-                      onChange={(e) => setLeasingInterestRate(Number(e.target.value))}
+                      onChange={(e) =>
+                        setLeasingInterestRate(Number(e.target.value))
+                      }
                       className="bg-gray-800 border-gray-700"
                       step="0.1"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="leasing-term">Lease Term (months)</Label>
-                      <span className="text-sm font-medium">{leasingTerm} months</span>
+                      <span className="text-sm font-medium">
+                        {leasingTerm} months
+                      </span>
                     </div>
                     <Slider
                       id="leasing-term"
@@ -499,44 +597,52 @@ const Calculators = () => {
                       <option value={60}>60 months</option>
                     </select>
                   </div>
-                  
-                  <Button 
-                    onClick={calculateLeasing} 
+
+                  <Button
+                    onClick={calculateLeasing}
                     className="w-full bg-fintrack-green hover:bg-fintrack-green-dark"
                   >
                     Calculate
                   </Button>
                 </div>
-                
+
                 <div className="bg-gray-800 rounded-lg p-6 space-y-6">
                   <h3 className="text-lg font-medium">Lease Summary</h3>
-                  
+
                   <div className="space-y-4">
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Monthly Payment</p>
                       <p className="text-2xl font-bold">
-                        {leasingMonthlyPayment ? `$${leasingMonthlyPayment.toFixed(2)}` : '-'}
+                        {leasingMonthlyPayment
+                          ? `$${leasingMonthlyPayment.toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Depreciation</p>
                       <p className="text-xl font-semibold">
-                        ${(leasingVehiclePrice - leasingResidualValue).toLocaleString()}
+                        $
+                        {(
+                          leasingVehiclePrice - leasingResidualValue
+                        ).toLocaleString()}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Lease Period</p>
                       <p className="text-xl font-semibold">
-                        {leasingTerm} months ({(leasingTerm / 12).toFixed(1)} years)
+                        {leasingTerm} months ({(leasingTerm / 12).toFixed(1)}{" "}
+                        years)
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Total Lease Cost</p>
                       <p className="text-xl font-semibold">
-                        {leasingTotalPayment ? `$${leasingTotalPayment.toFixed(2)}` : '-'}
+                        {leasingTotalPayment
+                          ? `$${leasingTotalPayment.toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
                   </div>
@@ -545,7 +651,7 @@ const Calculators = () => {
             </CardContent>
           </Card>
         </TabsContent>
-        
+
         {/* Tax Calculator */}
         <TabsContent value="tax">
           <Card className="bg-fintrack-dark-lighter border-gray-800">
@@ -555,7 +661,8 @@ const Calculators = () => {
                 Income Tax Calculator
               </CardTitle>
               <CardDescription>
-                Estimate your income tax based on your income, tax rate, and deductions.
+                Estimate your income tax based on your income, tax rate, and
+                deductions.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -564,7 +671,9 @@ const Calculators = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="tax-income">Taxable Income ($)</Label>
-                      <span className="text-sm font-medium">${taxableIncome.toLocaleString()}</span>
+                      <span className="text-sm font-medium">
+                        ${taxableIncome.toLocaleString()}
+                      </span>
                     </div>
                     <Slider
                       id="tax-income"
@@ -582,7 +691,7 @@ const Calculators = () => {
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="tax-rate">Tax Rate (%)</Label>
@@ -604,11 +713,13 @@ const Calculators = () => {
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <Label htmlFor="tax-deductions">Deductions ($)</Label>
-                      <span className="text-sm font-medium">${taxDeductions.toLocaleString()}</span>
+                      <span className="text-sm font-medium">
+                        ${taxDeductions.toLocaleString()}
+                      </span>
                     </div>
                     <Slider
                       id="tax-deductions"
@@ -626,44 +737,56 @@ const Calculators = () => {
                       className="bg-gray-800 border-gray-700"
                     />
                   </div>
-                  
-                  <Button 
-                    onClick={calculateTax} 
+
+                  <Button
+                    onClick={calculateTax}
                     className="w-full bg-fintrack-green hover:bg-fintrack-green-dark"
                   >
                     Calculate
                   </Button>
                 </div>
-                
+
                 <div className="bg-gray-800 rounded-lg p-6 space-y-6">
                   <h3 className="text-lg font-medium">Tax Summary</h3>
-                  
+
                   <div className="space-y-4">
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Estimated Tax</p>
                       <p className="text-2xl font-bold">
-                        {taxResult ? `$${taxResult.toFixed(2)}` : '-'}
+                        {taxResult ? `$${taxResult.toFixed(2)}` : "-"}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
                       <p className="text-sm text-gray-400">Income After Tax</p>
                       <p className="text-xl font-semibold">
-                        {taxResult ? `$${(taxableIncome - taxResult).toFixed(2)}` : '-'}
+                        {taxResult
+                          ? `$${(taxableIncome - taxResult).toFixed(2)}`
+                          : "-"}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-400">Effective Tax Rate</p>
+                      <p className="text-sm text-gray-400">
+                        Effective Tax Rate
+                      </p>
                       <p className="text-xl font-semibold">
-                        {effectiveTaxRate ? `${effectiveTaxRate.toFixed(2)}%` : '-'}
+                        {effectiveTaxRate
+                          ? `${effectiveTaxRate.toFixed(2)}%`
+                          : "-"}
                       </p>
                     </div>
-                    
+
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-400">Taxable Income (After Deductions)</p>
+                      <p className="text-sm text-gray-400">
+                        Taxable Income (After Deductions)
+                      </p>
                       <p className="text-xl font-semibold">
-                        ${Math.max(0, taxableIncome - taxDeductions).toLocaleString()}
+                        $
+                        {Math.max(
+                          0,
+                          taxableIncome - taxDeductions
+                        ).toLocaleString()}
                       </p>
                     </div>
                   </div>
