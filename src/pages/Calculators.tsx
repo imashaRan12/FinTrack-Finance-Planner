@@ -76,14 +76,14 @@ const Calculators = () => {
 
   // Mortgage calculator
   const calculateMortgage = () => {
-    // const principal = mortgagePrice - mortgageDownPayment;
-    // const interest = mortgageInterestRate / 100 / 12;
-    // const payments = mortgageTerm * 12;
-    // const x = Math.pow(1 + interest, payments);
-    // const monthly = (principal * x * interest) / (x - 1);
-    // setMortgageMonthlyPayment(monthly);
-    // setMortgageTotalPayment(monthly * payments);
-    // setMortgageTotalInterest((monthly * payments) - principal);
+    const principal = mortgagePrice - mortgageDownPayment;
+    const interest = mortgageInterestRate / 100 / 12;
+    const payments = mortgageTerm * 12;
+    const x = Math.pow(1 + interest, payments);
+    const monthly = (principal * x * interest) / (x - 1);
+    setMortgageMonthlyPayment(monthly);
+    setMortgageTotalPayment(monthly * payments);
+    setMortgageTotalInterest(monthly * payments - principal);
   };
 
   // Leasing calculator
