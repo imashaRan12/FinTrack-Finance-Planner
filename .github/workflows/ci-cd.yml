@@ -3,22 +3,28 @@ name: CI/CD Pipeline for FinTrack
 on: [push, pull_request]
 
 jobs:
-  test:
+  parallel-tests:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16, 18, 20] # Test on different Node.js versions
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Tests
-        run: npm test
+      - name: Run Unit Tests
+        run: npm run test:unit &
+
+      - name: Run Integration Tests
+        run: npm run test:integration &
+
+      - name: Run E2E Tests
+        run: npm run test:e2e &
+
+      - name: Wait for All Tests to Finish
+        run: wait
