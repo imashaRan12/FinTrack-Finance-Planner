@@ -11,7 +11,10 @@
     "preview": "vite preview",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
-    "test": "echo \"No tests yet\" && exit 0"
+    "test": "echo \"No tests yet\" && exit 0",
+    "test:unit": "jest --runInBand",
+    "test:integration": "jest --runInBand tests/integration",
+    "test:e2e": "cypress run"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
