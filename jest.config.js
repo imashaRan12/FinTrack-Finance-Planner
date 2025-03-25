@@ -1,7 +1,18 @@
 module.exports = {
+  verbose: true,
   testEnvironment: "node",
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
+  rootDir: "./",
+  testMatch: [
+    "<rootDir>/tests/unit/**/*.test.(js|jsx|ts|tsx)",
+    "<rootDir>/tests/integration/**/*.test.(js|jsx|ts|tsx)",
+  ],
   transform: {
-    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
   },
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  globals: {
+    "ts-jest": {
+      isolatedModules: true,
+    },
+  },
 };
