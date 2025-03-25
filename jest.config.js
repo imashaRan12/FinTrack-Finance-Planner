@@ -1,9 +1,7 @@
 module.exports = {
   testEnvironment: "node",
-  testMatch: ["**/?(*.)+(spec|test).[jt]s?(x)"],
   transform: {
-    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.tsx?$": "ts-jest",
   },
-  moduleFileExtensions: ["js", "jsx", "json", "node"],
-  verbose: true,
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 };
