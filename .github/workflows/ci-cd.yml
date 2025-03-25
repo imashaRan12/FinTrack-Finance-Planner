@@ -41,3 +41,20 @@ jobs:
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
+
+  sast:
+    name: Static Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run ESLint Security Plugin
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+
+  sca:
+    name: Dependency Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run npm audit
+        run: npm audit --audit-level=high
