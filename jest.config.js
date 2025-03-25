@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   verbose: true,
   testEnvironment: "node",
   moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
